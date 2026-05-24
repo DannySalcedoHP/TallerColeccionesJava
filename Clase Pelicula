@@ -1,0 +1,44 @@
+package Clases.taller;
+
+public class Pelicula {
+
+    private String nombre;
+    private String director;
+    private String genero;
+    private double duracion;
+    private int anioEstreno;
+    private double rating;
+
+    public Pelicula(String nombre, String director, String genero, double duracion, int anioEstreno, double rating) {
+
+        this.nombre = nombre;
+        this.director = director;
+        this.genero = genero;
+        this.duracion = duracion;
+        this.anioEstreno = anioEstreno;
+        this.rating = rating;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+    public double getDuracion() {
+        return duracion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "nombre='" + nombre + '\'' +
+                ", director='" + director + '\'' +
+                ", genero='" + genero + '\'' +
+                ", duracion=" + duracion +
+                ", anioEstreno=" + anioEstreno +
+                ", rating=" + rating +
+                '}';
+    }
+}
