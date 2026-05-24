@@ -1,0 +1,175 @@
+package Clases.taller;
+
+import java.util.*;
+
+public class ListaPelicula {
+
+    public static void main(String[] args) {
+
+        Set<Pelicula> peliculas = new HashSet<>();
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Cuantas peliculas desea agregar?");
+        int cantidad = sc.nextInt();
+        sc.nextLine();
+
+        for (int i = 0; i < cantidad; i++) {
+
+            System.out.println("\nPELICULA " + (i + 1));
+
+            System.out.print("Nombre: ");
+            String nombre = sc.nextLine();
+
+            System.out.print("Director: ");
+            String director = sc.nextLine();
+
+            System.out.print("Genero: ");
+            String genero = sc.nextLine();
+
+            System.out.print("Duracion: ");
+            double duracion = sc.nextDouble();
+
+            System.out.print("Anio de estreno: ");
+            int anio = sc.nextInt();
+
+            System.out.print("Rating: ");
+            double rating = sc.nextDouble();
+            sc.nextLine();
+
+            peliculas.add(new Pelicula(
+                    nombre,
+                    director,
+                    genero,
+                    duracion,
+                    anio,
+                    rating));
+        }
+
+        peliculas.add(new Pelicula(
+                "A Silent Voice",
+                "Naoko Yamada",
+                "Animada",
+                180,
+                2016,
+                8.9));
+
+        peliculas.add(new Pelicula(
+                "La La Land",
+                "Damien Chazelle",
+                "Romance",
+                128,
+                2016,
+                8.0));
+
+        peliculas.add(new Pelicula(
+                "Dog Island",
+                "Wes Anderson",
+                "Stop Motion",
+                102,
+                2018,
+                7.8));
+
+        // Pelicula repetida
+        peliculas.add(new Pelicula(
+                "A Silent Voice",
+                "Naoko Yamada",
+                "Animada",
+                180,
+                2016,
+                8.9));
+
+        List<Pelicula> listaPeliculas = new ArrayList<>(peliculas);
+        listaPeliculas.sort((p1, p2) ->
+                Double.compare(p1.getDuracion(), p2.getDuracion()));
+
+        Set<Pelicula> peliculasOrdenadas = new TreeSet<>(
+                (p1, p2) -> p1.getNombre().compareToIgnoreCase(p2.getNombre())
+        );
+        peliculasOrdenadas.addAll(peliculas);
+
+        Map<String, List<Pelicula>> generoPeliculas = new HashMap<>();
+
+        for (Pelicula p : peliculas) {
+
+            generoPeliculas.putIfAbsent(
+                    p.getGenero(),
+                    new ArrayList<>());
+
+            generoPeliculas.get(p.getGenero()).add(p);
+        }
+
+
+        String buscada = "La La Land";
+
+
+        System.out.println("\nBUSQUEDA EN SET");
+
+        boolean encontrada = false;
+
+        for (Pelicula p : peliculas) {
+
+            if (p.getNombre().equalsIgnoreCase(buscada)) {
+
+                System.out.println("Encontrada: " + p);
+                encontrada = true;
+            }
+        }
+
+        if (!encontrada) {
+            System.out.println("Pelicula no encontrada");
+        }
+
+
+        System.out.println("\nBUSQUEDA EN MAP");
+
+        for (String genero : generoPeliculas.keySet()) {
+
+            List<Pelicula> lista = generoPeliculas.get(genero);
+
+            for (Pelicula p : lista) {
+
+                if (p.getNombre().equalsIgnoreCase(buscada)) {
+
+                    System.out.println("Genero: " + genero);
+                    System.out.println(p);
+                }
+            }
+        }
+
+
+        System.out.println("\nBUSQUEDA EN LIST");
+
+        for (Pelicula p : listaPeliculas) {
+
+            if (p.getNombre().equalsIgnoreCase(buscada)) {
+
+                System.out.println("Encontrada: " + p);
+            }
+        }
+
+        System.out.println("\nPELICULAS POR GENERO");
+
+        for (String genero : generoPeliculas.keySet()) {
+
+            System.out.println("\nGenero: " + genero);
+
+            for (Pelicula p : generoPeliculas.get(genero)) {
+
+                System.out.println(p);
+            }
+        }
+        System.out.println("\nPELICULAS ORDENADAS POR DURACION");
+
+        for (Pelicula p : listaPeliculas) {
+
+            System.out.println(p);
+        }
+        System.out.println("\nPELICULAS ORDENADAS POR NOMBRE");
+
+        for (Pelicula p : peliculasOrdenadas) {
+
+            System.out.println(p);
+        }
+    }
+}
